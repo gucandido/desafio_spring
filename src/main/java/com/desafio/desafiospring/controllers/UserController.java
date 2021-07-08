@@ -42,13 +42,13 @@ public class UserController {
         return new ResponseEntity<>(userService.follow(userId,userIdToFollow), HttpStatus.CREATED);
     }
 
-    /* //US 0002
+    //US 0002
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<?> followerCount(Integer userId){
-        return null;
+    public ResponseEntity<?> followerCount(@PathVariable long userId){
+        return new ResponseEntity<>(userService.getFollowersCount(userId), HttpStatus.ACCEPTED);
     }
 
-    //US 0003
+    /* //US 0003
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<?> followerList(Integer userId, Integer userIdToFollow){
         return null;
