@@ -1,5 +1,6 @@
 package com.desafio.desafiospring.services.user;
 
+import com.desafio.desafiospring.dto.response.users.FollowersCountDto;
 import com.desafio.desafiospring.dto.response.users.UserDto;
 import com.desafio.desafiospring.entities.user.User;
 import com.desafio.desafiospring.repositories.user.UserRepo;
@@ -47,6 +48,12 @@ public class UserService {
 
     }
 
+    public FollowersCountDto getFollowersCount(long id){
 
+        User user = repository.findById(id);
+
+        return new FollowersCountDto(user);
+
+    }
 
 }
