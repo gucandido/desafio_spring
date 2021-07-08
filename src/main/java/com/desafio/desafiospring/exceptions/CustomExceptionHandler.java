@@ -44,6 +44,12 @@ public class CustomExceptionHandler {
         return ResponseEntity.badRequest().body(ex);
     }
 
+    @ExceptionHandler(UserNotFollowing.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(UserNotFollowing e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<ExceptionDto>> defaultHandler(MethodArgumentNotValidException e){
         BindingResult result = e.getBindingResult();
