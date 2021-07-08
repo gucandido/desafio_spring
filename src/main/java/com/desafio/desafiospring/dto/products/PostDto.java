@@ -1,9 +1,9 @@
-package com.desafio.desafiospring.dto.request.products;
+package com.desafio.desafiospring.dto.products;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PromoPostDto {
+public class PostDto {
 
     private long user_id;
     private long id_post;
@@ -14,7 +14,5 @@ public class PromoPostDto {
     private long category;
     private BigDecimal price;
 
-    private boolean hasPromo;
-    private BigDecimal discount;
 
 }

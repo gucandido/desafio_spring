@@ -1,4 +1,4 @@
-package com.desafio.desafiospring.dto.request.products;
+package com.desafio.desafiospring.dto.products;
 
 public class DetailDto {
 

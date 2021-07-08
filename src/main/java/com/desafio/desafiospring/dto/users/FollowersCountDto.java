@@ -1,4 +1,4 @@
-package com.desafio.desafiospring.dto.response.users;
+package com.desafio.desafiospring.dto.users;
 
 import com.desafio.desafiospring.entities.user.User;
 
