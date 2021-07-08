@@ -1,23 +1,20 @@
 package com.desafio.desafiospring.repositories.user;
 
-import com.desafio.desafiospring.dto.response.users.UserDto;
+import com.desafio.desafiospring.dto.users.UserDto;
 import com.desafio.desafiospring.entities.user.User;
 
 import java.util.*;
 
+import com.desafio.desafiospring.enums.UserType;
+import com.desafio.desafiospring.exceptions.FollowNotAllowed;
+import com.desafio.desafiospring.exceptions.UserNotFound;
 import com.desafio.desafiospring.repositories.Repo;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepo implements Repo {
 
     private static List<User> FILE = new ArrayList<>();
-
-    @Autowired
-    private ObjectMapper mapper;
 
     private List<User> loadData(){
 
@@ -37,15 +34,12 @@ public class UserRepo implements Repo {
     @Override
     public User findById(long id) {
 
-        try{
-
             Optional<User> oUser = loadData().stream().filter(x-> x.getUserId() == id).findFirst();
 
-            return oUser.isPresent() ? oUser.get(): null;
-
-        }catch (NoSuchElementException e){
-            throw new RuntimeException("Elemento nao encontrado");
-        }
+            if(oUser.isPresent())
+                return oUser.get();
+            else
+                throw new UserNotFound("Usuário não cadastrado");
 
     }
 
@@ -86,10 +80,25 @@ public class UserRepo implements Repo {
         User userToFollow = findById(idUserToFollow);
         User follower = findById(idUserFollowing);
 
-        userToFollow.getFollowers().add(follower);
-        follower.getFollowed().add(userToFollow);
+        if(userToFollow.getType() != UserType.SELLER) {
+            throw new FollowNotAllowed("O usuário a ser seguido deve ser um vendedor (seller)");
+        }else if(follower.getType() != UserType.BUYER) {
+            throw new FollowNotAllowed("O usuário que segue deve ser um comprador (buyer)");
+        }else {
 
-        return "Seguidor vinculado";
+            userToFollow.getFollowers().add(follower);
+            follower.getFollowed().add(userToFollow);
+
+            return "Seguidor vinculado";
+        }
+
+    }
+
+    public boolean isFollower(long idUserFollowing, long idUserFollowed){
+
+        User userFollowed = findById(idUserFollowed);
+
+        return userFollowed.getFollowers().stream().anyMatch(user -> user.getUserId() == idUserFollowing);
 
     }
 

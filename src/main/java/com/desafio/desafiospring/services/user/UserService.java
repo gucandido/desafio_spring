@@ -1,8 +1,10 @@
 package com.desafio.desafiospring.services.user;
 
-import com.desafio.desafiospring.dto.response.users.FollowersCountDto;
-import com.desafio.desafiospring.dto.response.users.UserDto;
+import com.desafio.desafiospring.dto.users.FollowersCountDto;
+import com.desafio.desafiospring.dto.users.UserDto;
 import com.desafio.desafiospring.entities.user.User;
+import com.desafio.desafiospring.exceptions.SameUserToFollow;
+import com.desafio.desafiospring.exceptions.UserAlreadyFollowing;
 import com.desafio.desafiospring.repositories.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,12 @@ public class UserService {
 
     public String follow(long userId, long userIdToFollow){
 
-        return repository.follow(userId, userIdToFollow);
+        if(userId == userIdToFollow)
+            throw new SameUserToFollow("Não é possível um usuário seguir a si mesmo");
+        else if (repository.isFollower(userId,userIdToFollow))
+            throw new UserAlreadyFollowing("Este usuário já é seguidor deste vendedor");
+        else
+            return repository.follow(userId, userIdToFollow);
 
     }
 

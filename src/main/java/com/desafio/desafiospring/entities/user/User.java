@@ -1,6 +1,7 @@
 package com.desafio.desafiospring.entities.user;
 
-import com.desafio.desafiospring.dto.response.users.UserDto;
+import com.desafio.desafiospring.dto.users.UserDto;
+import com.desafio.desafiospring.enums.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class User {
     private String userName;
     private List<User> followers;
     private List<User> followed;
+    private UserType type;
 
     public User() {
     }
@@ -19,6 +21,7 @@ public class User {
         this.userName = user.getUserName();
         this.followers = new ArrayList<>();
         this.followed = new ArrayList<>();
+        this.type = user.getType();
     }
 
     public long getUserId() {
@@ -53,4 +56,11 @@ public class User {
         this.followed = followed;
     }
 
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
 }
