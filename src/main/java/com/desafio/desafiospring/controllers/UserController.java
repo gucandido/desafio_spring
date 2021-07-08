@@ -1,6 +1,6 @@
 package com.desafio.desafiospring.controllers;
 
-import com.desafio.desafiospring.dto.users.UserDto;
+import com.desafio.desafiospring.dto.users.UserInputDto;
 import com.desafio.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class UserController {
 
     // cadastrar usuario
     @PostMapping("")
-    public ResponseEntity<?> postUser(@RequestBody @Valid UserDto user){
+    public ResponseEntity<?> postUser(@RequestBody @Valid UserInputDto user){
 
         return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
 
@@ -48,13 +48,13 @@ public class UserController {
         return new ResponseEntity<>(userService.getFollowersCount(userId), HttpStatus.ACCEPTED);
     }
 
-    /* //US 0003
+     //US 0003
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<?> followerList(Integer userId, Integer userIdToFollow){
-        return null;
+    public ResponseEntity<?> followerList(@PathVariable long userId){
+        return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.ACCEPTED);
     }
 
-    //US 0004
+    /*//US 0004
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<?> followedList(Integer userId, Integer userIdToFollow){
         return null;
