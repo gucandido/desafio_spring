@@ -1,6 +1,6 @@
 package com.desafio.desafiospring.repositories.user;
 
-import com.desafio.desafiospring.dto.users.UserDto;
+import com.desafio.desafiospring.dto.users.UserInputDto;
 import com.desafio.desafiospring.entities.user.User;
 
 import java.util.*;
@@ -46,7 +46,7 @@ public class UserRepo implements Repo {
     @Override
     public User save(Object obj) {
 
-        User user = new User((UserDto) obj);
+        User user = new User((UserInputDto) obj);
 
         List<User> users = loadData();
 

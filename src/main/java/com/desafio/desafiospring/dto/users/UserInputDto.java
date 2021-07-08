@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class UserDto {
+public class UserInputDto {
 
     @NotNull
     @NotEmpty
@@ -16,11 +16,11 @@ public class UserDto {
     @NotNull
     private UserType type;
 
-    public UserDto() {
+    public UserInputDto() {
 
     }
 
-    public UserDto(String userName) {
+    public UserInputDto(String userName) {
         this.userName = userName;
     }
 

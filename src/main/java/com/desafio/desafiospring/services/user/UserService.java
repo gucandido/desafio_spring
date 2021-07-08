@@ -1,7 +1,8 @@
 package com.desafio.desafiospring.services.user;
 
 import com.desafio.desafiospring.dto.users.FollowersCountDto;
-import com.desafio.desafiospring.dto.users.UserDto;
+import com.desafio.desafiospring.dto.users.FollowersDto;
+import com.desafio.desafiospring.dto.users.UserInputDto;
 import com.desafio.desafiospring.entities.user.User;
 import com.desafio.desafiospring.exceptions.SameUserToFollow;
 import com.desafio.desafiospring.exceptions.UserAlreadyFollowing;
@@ -25,7 +26,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public UserDto create(UserDto user) {
+    public UserInputDto create(UserInputDto user) {
 
         repository.save(user);
 
@@ -72,6 +73,14 @@ public class UserService {
         User user = repository.findById(id);
 
         return new FollowersCountDto(user);
+
+    }
+
+    public FollowersDto getFollowersList(long id){
+
+        User user = repository.findById(id);
+
+        return new FollowersDto(user);
 
     }
 
