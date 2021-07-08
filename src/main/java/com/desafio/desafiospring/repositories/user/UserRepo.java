@@ -94,6 +94,18 @@ public class UserRepo implements Repo {
 
     }
 
+    public String unfollow(long idUserFollowing, long idUserToFollow){
+
+        User userToFollow = findById(idUserToFollow);
+        User follower = findById(idUserFollowing);
+
+        userToFollow.getFollowers().removeIf(x->x.getUserId() == idUserFollowing);
+        follower.getFollowed().removeIf(x->x.getUserId() == idUserToFollow);
+
+            return "Seguidor desvinculado";
+
+    }
+
     public boolean isFollower(long idUserFollowing, long idUserFollowed){
 
         User userFollowed = findById(idUserFollowed);
