@@ -5,7 +5,7 @@ import com.desafio.desafiospring.entities.products.Post;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class PostOutPutDto implements Comparable{
+public class PostOutputDto implements Comparable{
 
     private long idPost;
     private LocalDate date;
@@ -13,7 +13,7 @@ public class PostOutPutDto implements Comparable{
     private long category;
     private BigDecimal price;
 
-    public PostOutPutDto(Post post) {
+    public PostOutputDto(Post post) {
         this.idPost = post.getIdPost();
         this.date = post.getDate();
         this.category = post.getCategory();
@@ -62,12 +62,12 @@ public class PostOutPutDto implements Comparable{
         this.price = price;
     }
 
-    public static PostOutPutDto classToDto(Post post){
-        return new PostOutPutDto(post);
+    public static PostOutputDto classToDto(Post post){
+        return new PostOutputDto(post);
     }
 
     @Override
     public int compareTo(Object o) {
-        return Long.compare(this.idPost,((PostOutPutDto) o).getIdPost());
+        return Long.compare(this.idPost,((PostOutputDto) o).getIdPost());
     }
 }

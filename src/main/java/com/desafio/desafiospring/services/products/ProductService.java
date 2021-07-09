@@ -2,7 +2,8 @@ package com.desafio.desafiospring.services.products;
 
 import com.desafio.desafiospring.dto.products.PostInputDto;
 import com.desafio.desafiospring.dto.products.FollowedPostsOutputDto;
-import com.desafio.desafiospring.dto.products.PostOutPutDto;
+import com.desafio.desafiospring.dto.products.PostOutputDto;
+import com.desafio.desafiospring.dto.products.PromoPostInputDto;
 import com.desafio.desafiospring.dto.users.FollowedDto;
 import com.desafio.desafiospring.dto.users.UserOutputDto;
 import com.desafio.desafiospring.entities.products.Detail;
@@ -17,6 +18,7 @@ import com.desafio.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,8 +48,10 @@ public class ProductService {
 
             if(postDto.getPrice().doubleValue() > 0.0){
 
-                Detail detail = detailRepository.save(postDto.getDetail());
-                Post post = new Post(seller,postDto.getDate(), detail,postDto.getCategory(),postDto.getPrice());
+                Post post = postFactory(seller, postDto);
+
+                post.setDetail(detailRepository.save(postDto.getDetail()));
+
                 postRepository.save(post);
 
                 return postDto;
@@ -69,9 +73,9 @@ public class ProductService {
 
         for (UserOutputDto user: followeds.getFollowed()) {
 
-            List<PostOutPutDto> posts = new ArrayList<>();
-            postRepository.findByUser(user.getUserId()).forEach(x->posts.add(PostOutPutDto.classToDto(x)));
-            List<PostOutPutDto> twoWeeksPosts = getLastTwoWeeks(posts);
+            List<PostOutputDto> posts = new ArrayList<>();
+            postRepository.findByUser(user.getUserId()).forEach(x->posts.add(PostOutputDto.classToDto(x)));
+            List<PostOutputDto> twoWeeksPosts = getLastTwoWeeks(posts);
             orderListBy(twoWeeksPosts, order);
             followedPosts.add(new FollowedPostsOutputDto(user.getUserId(), twoWeeksPosts));
 
@@ -81,15 +85,15 @@ public class ProductService {
 
     }
 
-    private void orderListBy(List<PostOutPutDto> list, Optional<String> order){
+    private void orderListBy(List<PostOutputDto> list, Optional<String> order){
 
         if(order.isPresent()){
             switch (order.get()){
                 case "date_asc":
-                    list.sort(Comparator.comparing(PostOutPutDto::getDate));
+                    list.sort(Comparator.comparing(PostOutputDto::getDate));
                     break;
                 case "date_desc":
-                    list.sort(Comparator.comparing(PostOutPutDto::getDate));
+                    list.sort(Comparator.comparing(PostOutputDto::getDate));
                     Collections.reverse(list);
                     break;
                 default:
@@ -102,11 +106,25 @@ public class ProductService {
 
     }
 
-    public List<PostOutPutDto> getLastTwoWeeks(List<PostOutPutDto> posts){
-
+    private List<PostOutputDto> getLastTwoWeeks(List<PostOutputDto> posts){
         return posts.stream().filter(x->x.getDate().isAfter(LocalDate.now().minusWeeks(2))).collect(Collectors.toList());
     }
 
+    private Post postFactory(User seller, PostInputDto postDto){
+
+        Post post;
+
+        if(postDto.getClass().equals(PostInputDto.class)) {
+            post = new Post(seller, postDto.getDate(), postDto.getCategory(), postDto.getPrice());
+        }else if(postDto.getClass().equals(PromoPostInputDto.class)) {
+            PromoPostInputDto promo = (PromoPostInputDto) postDto;
+            post = new Post(seller, promo.getDate(), promo.getCategory(), promo.getPrice(), promo.isHasPromo(), promo.getDiscount());
+        }else {
+            throw new ClassCastException();
+        }
+
+        return post;
+    }
 
 
 }

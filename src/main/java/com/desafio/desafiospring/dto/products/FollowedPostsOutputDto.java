@@ -5,9 +5,9 @@ import java.util.List;
 public class FollowedPostsOutputDto {
 
     private long userId;
-    private List<PostOutPutDto> posts;
+    private List<PostOutputDto> posts;
 
-    public FollowedPostsOutputDto(long userId, List<PostOutPutDto> posts) {
+    public FollowedPostsOutputDto(long userId, List<PostOutputDto> posts) {
         this.userId = userId;
         this.posts = posts;
     }
@@ -20,11 +20,11 @@ public class FollowedPostsOutputDto {
         this.userId = userId;
     }
 
-    public List<PostOutPutDto> getPosts() {
+    public List<PostOutputDto> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostOutPutDto> posts) {
+    public void setPosts(List<PostOutputDto> posts) {
         this.posts = posts;
     }
 

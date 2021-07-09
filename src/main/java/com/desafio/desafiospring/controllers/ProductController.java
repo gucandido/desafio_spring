@@ -1,8 +1,8 @@
 package com.desafio.desafiospring.controllers;
 
 import com.desafio.desafiospring.dto.products.PostInputDto;
+import com.desafio.desafiospring.dto.products.PromoPostInputDto;
 import com.desafio.desafiospring.services.products.ProductService;
-import com.desafio.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -32,14 +31,13 @@ public class ProductController {
         return new ResponseEntity<>(productService.listFollowedPosts(userId, order), HttpStatus.ACCEPTED);
     }
 
-/*
     //US 0010
     @PostMapping("/newpromopost")
-    public ResponseEntity<?> newProductPromoPost(@RequestBody @Valid PostInputDto payload){
-        return null;
+    public ResponseEntity<?> newProductPromoPost(@RequestBody @Valid PromoPostInputDto payload){
+        return new ResponseEntity<>(productService.create(payload), HttpStatus.CREATED);
     }
 
-    //US 0011
+    /*//US 0011
     @PostMapping("/{userId}/countPromo/")
     public ResponseEntity<?> countPromoPost(Integer userId){
         return null;

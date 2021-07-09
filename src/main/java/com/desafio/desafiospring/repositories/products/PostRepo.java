@@ -1,7 +1,6 @@
 package com.desafio.desafiospring.repositories.products;
 
 import com.desafio.desafiospring.entities.products.Post;
-import com.desafio.desafiospring.entities.user.User;
 import com.desafio.desafiospring.exceptions.products.PostNotFound;
 import com.desafio.desafiospring.repositories.Repo;
 import org.springframework.stereotype.Repository;
