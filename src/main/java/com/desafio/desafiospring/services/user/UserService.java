@@ -1,9 +1,6 @@
 package com.desafio.desafiospring.services.user;
 
-import com.desafio.desafiospring.dto.users.FollowedDto;
-import com.desafio.desafiospring.dto.users.FollowersCountDto;
-import com.desafio.desafiospring.dto.users.FollowersDto;
-import com.desafio.desafiospring.dto.users.UserInputDto;
+import com.desafio.desafiospring.dto.users.*;
 import com.desafio.desafiospring.entities.user.User;
 import com.desafio.desafiospring.exceptions.SameUserToFollow;
 import com.desafio.desafiospring.exceptions.UserAlreadyFollowing;
@@ -12,7 +9,10 @@ import com.desafio.desafiospring.repositories.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -76,17 +76,46 @@ public class UserService {
 
     }
 
-    public FollowersDto getFollowersList(long id){
+    public FollowersDto getFollowersList(long id, Optional<String> order){
 
         User user = repository.findById(id);
-        return new FollowersDto(user);
+        FollowersDto followers = new FollowersDto(user);
+
+        orderListBy(followers.getFollowers(), order);
+
+        return followers;
 
     }
 
-    public FollowedDto getFollowedList(long id){
+    public FollowedDto getFollowedList(long id, Optional<String> order){
 
         User user = repository.findById(id);
-        return new FollowedDto(user);
+        FollowedDto followed = new FollowedDto(user);
+
+        orderListBy(followed.getFollowed(), order);
+
+        return followed;
+
+    }
+
+    private void orderListBy(List<UserOutputDto> list, Optional<String> order){
+
+        if(order.isPresent()){
+            switch (order.get()){
+                case "name_asc":
+                    list.sort(Comparator.comparing(UserOutputDto::getUserName));
+                    break;
+                case "name_desc":
+                    list.sort(Comparator.comparing(UserOutputDto::getUserName));
+                    Collections.reverse(list);
+                    break;
+                default:
+                    Collections.sort(list);
+
+            }
+        } else {
+            Collections.sort(list);
+        }
 
     }
 

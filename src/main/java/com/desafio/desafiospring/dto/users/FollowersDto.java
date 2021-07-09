@@ -1,11 +1,14 @@
 package com.desafio.desafiospring.dto.users;
 
 import com.desafio.desafiospring.entities.user.User;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class FollowersDto {
+public class FollowersDto{
 
     public long userId;
     public String userName;
@@ -16,6 +19,7 @@ public class FollowersDto {
         this.userName = user.getUserName();
 
         user.getFollowers().forEach(x->this.followers.add(UserOutputDto.classToDto(x)));
+
     }
 
     public long getUserId() {
