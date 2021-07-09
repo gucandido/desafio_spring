@@ -1,8 +1,8 @@
-package com.desafio.desafiospring.dto.products;
+package com.desafio.desafiospring.entities.products;
 
-import com.desafio.desafiospring.entities.products.Detail;
+import com.desafio.desafiospring.dto.products.DetailDto;
 
-public class DetailDto {
+public class Detail {
 
     private long productId;
     private String productName;
@@ -11,16 +11,13 @@ public class DetailDto {
     private String color;
     private String notes;
 
-    public DetailDto() {
-    }
-
-    public DetailDto(Detail detail) {
-        this.productId = detail.getProductId();
-        this.productName = detail.getProductName();
-        this.type = detail.getType();
-        this.brand = detail.getBrand();
-        this.color = detail.getColor();
-        this.notes = detail.getNotes();
+    public Detail(DetailDto dto) {
+        this.productId = dto.getProductId();
+        this.productName = dto.getProductName();
+        this.type = dto.getType();
+        this.brand = dto.getBrand();
+        this.color = dto.getColor();
+        this.notes = dto.getNotes();
     }
 
     public long getProductId() {
@@ -70,13 +67,4 @@ public class DetailDto {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
-    public static Detail dtoToClass(DetailDto dto){
-        return new Detail(dto);
-    }
-
-    public static DetailDto classToDto(Detail detail){
-        return new DetailDto(detail);
-    }
-
 }
