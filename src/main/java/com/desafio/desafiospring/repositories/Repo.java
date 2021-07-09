@@ -1,5 +1,8 @@
 package com.desafio.desafiospring.repositories;
 
+import com.desafio.desafiospring.entities.products.Post;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Repo<T> {

@@ -18,7 +18,6 @@ public class UserRepo implements Repo {
 
     private List<User> loadData(){
 
-
         return FILE;
 
     }
@@ -26,9 +25,7 @@ public class UserRepo implements Repo {
 
     @Override
     public List<User> findAll() {
-
-        List<User> u = loadData();
-        return u;
+        return loadData();
     }
 
     @Override
