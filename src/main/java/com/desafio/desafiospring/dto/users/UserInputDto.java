@@ -1,11 +1,10 @@
 package com.desafio.desafiospring.dto.users;
 
 import com.desafio.desafiospring.enums.UserType;
-import com.desafio.desafiospring.exceptions.UserTypeNotDefined;
+import com.desafio.desafiospring.exceptions.user.UserTypeNotDefined;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 public class UserInputDto {
 

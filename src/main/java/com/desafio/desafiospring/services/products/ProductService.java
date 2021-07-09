@@ -8,6 +8,9 @@ import com.desafio.desafiospring.dto.users.UserOutputDto;
 import com.desafio.desafiospring.entities.products.Detail;
 import com.desafio.desafiospring.entities.products.Post;
 import com.desafio.desafiospring.entities.user.User;
+import com.desafio.desafiospring.enums.UserType;
+import com.desafio.desafiospring.exceptions.products.InvalidPrice;
+import com.desafio.desafiospring.exceptions.products.PostNotAllowed;
 import com.desafio.desafiospring.repositories.products.DetailRepo;
 import com.desafio.desafiospring.repositories.products.PostRepo;
 import com.desafio.desafiospring.services.user.UserService;
@@ -39,13 +42,23 @@ public class ProductService {
 
         User seller = userService.findById(postDto.getUserId());
 
-        Detail detail = detailRepository.save(postDto.getDetail());
+        if(seller.getType() == UserType.SELLER){
 
-        Post post = new Post(seller,postDto.getDate(), detail,postDto.getCategory(),postDto.getPrice());
+            if(postDto.getPrice().doubleValue() > 0.0){
 
-        postRepository.save(post);
+                Detail detail = detailRepository.save(postDto.getDetail());
+                Post post = new Post(seller,postDto.getDate(), detail,postDto.getCategory(),postDto.getPrice());
+                postRepository.save(post);
 
-        return postDto;
+                return postDto;
+
+            }else{
+                throw new InvalidPrice("O preço do produto deve ser maior que 0");
+            }
+
+        }else{
+            throw new PostNotAllowed("Para realizar um post o usuário precisa ser do tipo seller");
+        }
 
     }
 

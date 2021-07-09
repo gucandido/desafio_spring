@@ -2,6 +2,7 @@ package com.desafio.desafiospring.repositories.products;
 
 import com.desafio.desafiospring.dto.products.DetailDto;
 import com.desafio.desafiospring.entities.products.Detail;
+import com.desafio.desafiospring.exceptions.products.DetailNotFound;
 import com.desafio.desafiospring.repositories.Repo;
 import org.springframework.stereotype.Repository;
 
@@ -31,8 +32,7 @@ public class DetailRepo implements Repo {
         if(oDetail.isPresent())
             return oDetail.get();
         else
-            return null;
-        // throw new UserNotFound("Usuário não cadastrado");
+            throw new DetailNotFound("Produto não cadastrado");
     }
 
     @Override
