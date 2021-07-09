@@ -68,6 +68,6 @@ public class PostOutPutDto implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        return this.date.compareTo((LocalDate) o);
+        return Long.compare(this.idPost,((PostOutPutDto) o).getIdPost());
     }
 }
