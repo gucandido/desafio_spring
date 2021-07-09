@@ -2,7 +2,7 @@ package com.desafio.desafiospring.dto.users;
 
 import com.desafio.desafiospring.entities.user.User;
 
-public class UserOutputDto {
+public class UserOutputDto implements Comparable<UserOutputDto> {
 
     private long userId;
     private String userName;
@@ -30,5 +30,10 @@ public class UserOutputDto {
 
     public static UserOutputDto classToDto(User user){
         return new UserOutputDto(user.getUserId(),user.getUserName());
+    }
+
+    @Override
+    public int compareTo(UserOutputDto o) {
+        return Long.compare(this.userId,o.getUserId());
     }
 }
