@@ -2,9 +2,9 @@ package com.desafio.desafiospring.services.user;
 
 import com.desafio.desafiospring.dto.users.*;
 import com.desafio.desafiospring.entities.user.User;
-import com.desafio.desafiospring.exceptions.SameUserToFollow;
-import com.desafio.desafiospring.exceptions.UserAlreadyFollowing;
-import com.desafio.desafiospring.exceptions.UserNotFollowing;
+import com.desafio.desafiospring.exceptions.user.SameUserToFollow;
+import com.desafio.desafiospring.exceptions.user.UserAlreadyFollowing;
+import com.desafio.desafiospring.exceptions.user.UserNotFollowing;
 import com.desafio.desafiospring.repositories.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

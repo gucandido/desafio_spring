@@ -2,6 +2,7 @@ package com.desafio.desafiospring.repositories.products;
 
 import com.desafio.desafiospring.entities.products.Post;
 import com.desafio.desafiospring.entities.user.User;
+import com.desafio.desafiospring.exceptions.products.PostNotFound;
 import com.desafio.desafiospring.repositories.Repo;
 import org.springframework.stereotype.Repository;
 
@@ -32,8 +33,7 @@ public class PostRepo implements Repo {
         if(oPost.isPresent())
             return oPost.get();
         else
-            return null;
-            // throw new UserNotFound("Usuário não cadastrado");
+            throw new PostNotFound("Post não cadastrado");
     }
 
     public List<Post> findByUser(long userId){

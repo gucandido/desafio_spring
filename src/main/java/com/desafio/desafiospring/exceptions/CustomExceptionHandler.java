@@ -1,6 +1,11 @@
 package com.desafio.desafiospring.exceptions;
 
 import com.desafio.desafiospring.dto.exception.ExceptionDto;
+import com.desafio.desafiospring.exceptions.products.DetailNotFound;
+import com.desafio.desafiospring.exceptions.products.InvalidPrice;
+import com.desafio.desafiospring.exceptions.products.PostNotAllowed;
+import com.desafio.desafiospring.exceptions.products.PostNotFound;
+import com.desafio.desafiospring.exceptions.user.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -46,6 +51,30 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(UserNotFollowing.class)
     public ResponseEntity<ExceptionDto> defaultHandler(UserNotFollowing e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(InvalidPrice.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(InvalidPrice e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(PostNotAllowed.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(PostNotAllowed e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(DetailNotFound.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(DetailNotFound e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(PostNotFound.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(PostNotFound e){
         ExceptionDto ex = new ExceptionDto(e.getMessage());
         return ResponseEntity.badRequest().body(ex);
     }

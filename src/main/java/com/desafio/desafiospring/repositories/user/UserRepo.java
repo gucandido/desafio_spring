@@ -6,8 +6,8 @@ import com.desafio.desafiospring.entities.user.User;
 import java.util.*;
 
 import com.desafio.desafiospring.enums.UserType;
-import com.desafio.desafiospring.exceptions.FollowNotAllowed;
-import com.desafio.desafiospring.exceptions.UserNotFound;
+import com.desafio.desafiospring.exceptions.user.FollowNotAllowed;
+import com.desafio.desafiospring.exceptions.user.UserNotFound;
 import com.desafio.desafiospring.repositories.Repo;
 import org.springframework.stereotype.Repository;
 
