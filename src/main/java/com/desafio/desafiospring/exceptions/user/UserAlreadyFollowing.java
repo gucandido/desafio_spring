@@ -1,4 +1,4 @@
-package com.desafio.desafiospring.exceptions;
+package com.desafio.desafiospring.exceptions.user;
 
 public class UserAlreadyFollowing extends RuntimeException{
 
