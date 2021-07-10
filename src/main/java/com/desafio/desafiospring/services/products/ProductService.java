@@ -1,24 +1,20 @@
 package com.desafio.desafiospring.services.products;
 
-import com.desafio.desafiospring.dto.products.PostInputDto;
-import com.desafio.desafiospring.dto.products.FollowedPostsOutputDto;
-import com.desafio.desafiospring.dto.products.PostOutputDto;
-import com.desafio.desafiospring.dto.products.PromoPostInputDto;
+import com.desafio.desafiospring.dto.products.*;
 import com.desafio.desafiospring.dto.users.FollowedDto;
 import com.desafio.desafiospring.dto.users.UserOutputDto;
-import com.desafio.desafiospring.entities.products.Detail;
 import com.desafio.desafiospring.entities.products.Post;
 import com.desafio.desafiospring.entities.user.User;
 import com.desafio.desafiospring.enums.UserType;
 import com.desafio.desafiospring.exceptions.products.InvalidPrice;
 import com.desafio.desafiospring.exceptions.products.PostNotAllowed;
+import com.desafio.desafiospring.exceptions.user.InvalidUserType;
 import com.desafio.desafiospring.repositories.products.DetailRepo;
 import com.desafio.desafiospring.repositories.products.PostRepo;
 import com.desafio.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,6 +78,19 @@ public class ProductService {
         }
 
         return followedPosts;
+
+    }
+
+    public CountPromoPostDto getPromoPostCount(long userId){
+
+        User user = userService.findById(userId);
+        if(user.getType() == UserType.SELLER) {
+            long qtPromos = postRepository.findByUser(user.getUserId()).stream().filter(Post::isHasPromo).count();
+
+            return new CountPromoPostDto(user.getUserId(), user.getUserName(), qtPromos);
+        }else{
+            throw new InvalidUserType("Apenas sellers possuem posts (O usuario passado é um buyer)");
+        }
 
     }
 

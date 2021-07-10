@@ -37,13 +37,13 @@ public class ProductController {
         return new ResponseEntity<>(productService.create(payload), HttpStatus.CREATED);
     }
 
-    /*//US 0011
-    @PostMapping("/{userId}/countPromo/")
-    public ResponseEntity<?> countPromoPost(Integer userId){
-        return null;
+    //US 0011
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<?> countPromoPost(@PathVariable long userId){
+        return new ResponseEntity<>(productService.getPromoPostCount(userId), HttpStatus.ACCEPTED);
     }
 
-    //US 0012
+    /*//US 0012
     @PostMapping("/{userId}/list/")
     public ResponseEntity<?> PromoPostList(Integer userId){
         return null;
