@@ -43,10 +43,10 @@ public class ProductController {
         return new ResponseEntity<>(productService.getPromoPostCount(userId), HttpStatus.ACCEPTED);
     }
 
-    /*//US 0012
-    @PostMapping("/{userId}/list/")
-    public ResponseEntity<?> PromoPostList(Integer userId){
-        return null;
-    }*/
+    //US 0012 e extra: ordenação dos promocionais por data como no requisito US0009
+    @GetMapping("/{userId}/list/")
+    public ResponseEntity<?> PromoPostList(@PathVariable long userId, @PathParam("order") Optional<String> order){
+        return new ResponseEntity<>(productService.getPromoPostList(userId, order), HttpStatus.ACCEPTED);
+    }
 
 }
