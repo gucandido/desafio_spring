@@ -35,7 +35,7 @@ public class UserController {
     // get all users test
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByIdOutput(id), HttpStatus.ACCEPTED);
     }
 
     //US 0001

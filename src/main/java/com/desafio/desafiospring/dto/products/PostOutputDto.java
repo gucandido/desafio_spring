@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 public class PostOutputDto implements Comparable{
 
-    private long idPost;
-    private LocalDate date;
-    private DetailDto detail;
-    private long category;
-    private BigDecimal price;
+    protected long idPost;
+    protected LocalDate date;
+    protected DetailDto detail;
+    protected long category;
+    protected BigDecimal price;
 
     public PostOutputDto(Post post) {
         this.idPost = post.getIdPost();

@@ -9,10 +9,7 @@ import com.desafio.desafiospring.repositories.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -36,11 +33,17 @@ public class UserService {
     }
 
     public List<?> listAll(){
-        return repository.findAll();
+        List<UserOutputDto> output = new ArrayList<>();
+        repository.findAll().forEach(x->output.add(UserOutputDto.classToDto(x)));
+        return output;
     }
 
     public User findById(long id){
         return repository.findById(id);
+    }
+
+    public UserOutputDto findByIdOutput(long id){
+        return UserOutputDto.classToDto(repository.findById(id));
     }
 
     public void delete(long id){

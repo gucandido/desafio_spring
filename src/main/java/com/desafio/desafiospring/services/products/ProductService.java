@@ -94,7 +94,25 @@ public class ProductService {
 
     }
 
-    private void orderListBy(List<PostOutputDto> list, Optional<String> order){
+    public PromoPostListDto getPromoPostList (long userId, Optional<String> order){
+
+        User user = userService.findById(userId);
+        if(user.getType() == UserType.SELLER) {
+
+            List<PromoPostOutputDto> posts = new ArrayList<>();
+            postRepository.findByUser(user.getUserId()).stream().filter(x->x.isHasPromo()).forEach(x->posts.add(PromoPostOutputDto.classToDto(x)));
+            orderListBy(posts, order);
+
+            return new PromoPostListDto(user,posts);
+
+        }else {
+            throw new InvalidUserType("Apenas sellers possuem posts (O usuario passado é um buyer)");
+        }
+
+
+    }
+
+    private void orderListBy(List<? extends PostOutputDto> list, Optional<String> order){
 
         if(order.isPresent()){
             switch (order.get()){
