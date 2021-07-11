@@ -248,7 +248,7 @@ Todavia, seguir estão os endpoints exemplificados:
 
 #### 6. Cadastrar uma nova publicação (US 0005)
 
-<p><code>Method: POST</code> <code>Sign: http://localhost:8080/products/newpost</code></p>
+<p><code>Method: POST</code><br><code>Sign: http://localhost:8080/products/newpost</code></p>
 <pre>
 <code><span style="font-size: medium">Exemplo: http://localhost:8080/products/newpost</span></code>
 <code><span style="font-size: medium">Body:</span> </code>
@@ -304,6 +304,8 @@ Todavia, seguir estão os endpoints exemplificados:
 <tr style="text-align: left"><td>brand</td><td>String</td><td>Marca do produto</td></tr>
 <tr style="text-align: left"><td>color</td><td>String</td><td>Cor do produto</td></tr>
 <tr style="text-align: left"><td>notes</td><td>String</td><td>Observações a respeito do produto</td></tr>
+<tr style="text-align: left"><td>category</td><td>int</td><td>Categoria do post</td></tr>
+<tr style="text-align: left"><td>price</td><td>double</td><td>Preço do produto</td></tr>
 </table>
 </pre>
 
@@ -379,7 +381,7 @@ Todavia, seguir estão os endpoints exemplificados:
 
 #### 8. Dar unfollow em um vendedor/seller (US 0007)
 
-<p><code>Method: POST</code> <code>Sign: http://localhost:8080/users/{userId}/unfollow/{userIdToUnfollow}</code></p>
+<p><code>Method: POST</code><br><code>Sign: http://localhost:8080/users/{userId}/unfollow/{userIdToUnfollow}</code></p>
 <pre>
 <code><span style="font-size: medium">Exemplo: http://localhost:8080/users/1/unfollow/0</span></code>
 <code><span style="font-size: medium">Response (Status: 201 - Created):</span></code>
@@ -400,4 +402,166 @@ Todavia, seguir estão os endpoints exemplificados:
 </table>
 </pre>
 
+#### 9. Realizar a publicação de um novo produto promocional (US 0010)
 
+<p><code>Method: POST</code><br><code>Sign: http://localhost:8080/products/newpromopost</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/products/newpromopost</span></code>
+<code><span style="font-size: medium">Body:</span> </code>
+
+    {
+        "userId": 0,
+        "id_post" : 0,
+        "date" : "10-07-2021",
+        "detail" :
+                { 
+                    "product_id" : 0,
+                    "productName" : "Cadeira Gamer",
+                    "type" : "Gamer",
+                    "brand" : "DT3 Racer",
+                    "color" : "Black",
+                    "notes" : "Elise - Racer"
+                },
+        "category" : 100,
+        "price" : 1200.50,
+        "hasPromo":true,
+        "discount":200.50
+    }
+
+<code><span style="font-size: medium">Response (Status: 201 - Created):</span></code>
+
+    {
+        "userId": 0,
+        "idPost": 0,
+        "date": "10-07-2021",
+        "detail": {
+            "productId": 0,
+            "productName": "Cadeira Gamer",
+            "type": "Gamer",
+            "brand": "DT3 Racer",
+            "color": "Black",
+            "notes": "Elise - Racer"
+        },
+        "category": 100,
+        "price": 1200.50,
+        "hasPromo": true,
+        "discount": 200.50
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário/vendedor </td></tr>
+<tr style="text-align: left"><td>idPost</td><td>int</td><td>Identificador único do post</td></tr>
+<tr style="text-align: left"><td>date</td><td>String</td><td>Data do post</td></tr>
+<tr style="text-align: left"><td>detail</td><td>Object</td><td>Produto do post</td></tr>
+<tr style="text-align: left"><td>productId</td><td>int</td><td>Identificador único do produto</td></tr>
+<tr style="text-align: left"><td>productName</td><td>String</td><td>Nome do produto</td></tr>
+<tr style="text-align: left"><td>type</td><td>String</td><td>Tipo do produto</td></tr>
+<tr style="text-align: left"><td>brand</td><td>String</td><td>Marca do produto</td></tr>
+<tr style="text-align: left"><td>color</td><td>String</td><td>Cor do produto</td></tr>
+<tr style="text-align: left"><td>notes</td><td>String</td><td>Observações a respeito do produto</td></tr>
+<tr style="text-align: left"><td>category</td><td>int</td><td>Categoria do post</td></tr>
+<tr style="text-align: left"><td>price</td><td>double</td><td>Preço do produto</td></tr>
+<tr style="text-align: left"><td>hasPromo</td><td>boolean</td><td>Indicativo de promoção sobre o produto podendo ser true ou false</td></tr>
+<tr style="text-align: left"><td>discount</td><td>double</td><td>Valor do desconto</td></tr>
+</table>
+</pre>
+
+#### 10. Obtenha o quantidade de produtos promocionais de um vendedor específico (US 0011)
+
+<p><code>Method: GET</code><br><code>Sign: http://localhost:8080/products/{userId}/countPromo/</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/products/0/countPromo/</span></code>
+<code><span style="font-size: medium">Response (Status: 202 - Accepted):</span></code>
+
+    {
+        "userId": 0,
+        "userName": "Vicente",
+        "promoProductsCount": 1
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do determinado usuário/vendedor</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do determinado usuário/vendedor</td></tr>
+<tr style="text-align: left"><td>promoProductsCount</td><td>int</td><td>Quantidade de posts promocionais</td></tr>
+</table>
+</pre>
+
+#### 11. Obter uma lista de todos os produtos promocionais de um vendedor específico (US 0012 / extra: ordenação)
+
+<p>
+    <code>Method: GET</code><br>
+    <code>Sign (Ordenação Padrão): http://localhost:8080/products/{userId}/list</code><br>
+    <code>Sign (Por data): http://localhost:8080/products/{userId}/list?order={order}</code>
+</p>
+
+<table>
+<tr><th>Parâmetro (order)</th><th>Descrição</th></tr>
+<tr><td>date_asc</td><td>Ordena por data dos posts de forma crescente</td></tr>
+<tr><td>date_desc</td><td>Ordena por data dos posts de forma descrescente</td></tr>
+</table>
+<pre>
+<code><span style="font-size: medium">Exemplo 1: http://localhost:8080/products/0/list</span></code>
+<code><span style="font-size: medium">Exemplo 2: http://localhost:8080/products/0/list?order=date_asc</span></code>
+<code><span style="font-size: medium">Exemplo 3: http://localhost:8080/products/0/list?order=date_desc</span></code>
+<code><span style="font-size: medium">Response (Status: 202 - Accepted):</span></code>
+
+    {
+        "userId": 0,
+        "posts": [
+            {
+                "idPost": 1,
+                "date": "2021-07-10",
+                "detail": {
+                    "productId": 1,
+                    "productName": "Cadeira Gamer",
+                    "type": "Gamer",
+                    "brand": "DT3 Racer",
+                    "color": "Black",
+                    "notes": "Elise - Racer"
+                },
+                "category": 100,
+                "price": 1200.50,
+                "hasPromo": true,
+                "discount": 200.50
+            },
+            {
+                ...
+            }
+        ],
+        "userName": "Vicente"
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do vendedor </td></tr>
+<tr style="text-align: left"><td>posts</td><td>Object List</td><td>Posts do vendedor</td></tr>
+<tr style="text-align: left"><td>idPost</td><td>int</td><td>Identificador único do post</td></tr>
+<tr style="text-align: left"><td>date</td><td>String</td><td>Data do post</td></tr>
+<tr style="text-align: left"><td>detail</td><td>Object</td><td>Produto do post</td></tr>
+<tr style="text-align: left"><td>productId</td><td>int</td><td>Identificador único do produto</td></tr>
+<tr style="text-align: left"><td>productName</td><td>String</td><td>Nome do produto</td></tr>
+<tr style="text-align: left"><td>type</td><td>String</td><td>Tipo do produto</td></tr>
+<tr style="text-align: left"><td>brand</td><td>String</td><td>Marca do produto</td></tr>
+<tr style="text-align: left"><td>color</td><td>String</td><td>Cor do produto</td></tr>
+<tr style="text-align: left"><td>notes</td><td>String</td><td>Observações a respeito do produto</td></tr>
+<tr style="text-align: left"><td>category</td><td>int</td><td>Categoria do post</td></tr>
+<tr style="text-align: left"><td>price</td><td>double</td><td>Preço do produto</td></tr>
+<tr style="text-align: left"><td>hasPromo</td><td>boolean</td><td>Indicativo de promoção sobre o produto podendo ser true ou false</td></tr>
+<tr style="text-align: left"><td>discount</td><td>double</td><td>Valor do desconto</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário/vendedor</td></tr>
+</table>
+</pre>
