@@ -182,7 +182,7 @@ Todavia, seguir estão os endpoints exemplificados:
         "followers": [
                         {
                             "userId": 1,
-                            "userName": "brenda 1"
+                            "userName": "Brenda"
                         },
                         {
                             ...
