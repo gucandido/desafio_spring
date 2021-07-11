@@ -27,7 +27,7 @@ A seguir está descrito o passo a passo para configuracao e teste do desafio:
 
     {
         "userName":"Brenda",
-        "type":"Buyer"
+        "type":"buyer"
     }
 
 
