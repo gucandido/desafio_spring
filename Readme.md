@@ -1,0 +1,238 @@
+# Desafio spring - Digital House
+
+### Repositório da solução do desafio spring
+
+A seguir está descrito o passo a passo para configuracao e teste do desafio:
+
+#### 1. Cadastro dos usuários
+
+<p><code>Method: POST</code> <code>Sign: http://localhost:8080/users</code></p>
+<pre>
+<code><span style="font-size: medium">Body(Vendedor):</span> </code>
+
+    {
+        "userName":"Vicente",
+        "type":"seller"
+    }
+
+
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "userName":"Vicente",
+        "type":"SELLER"
+    }
+
+<code><span style="font-size: medium">Body(Comprador):</span> </code>
+
+    {
+        "userName":"Brenda",
+        "type":"Buyer"
+    }
+
+
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "userName":"Brenda",
+        "type":"BUYER"
+    }
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário a ser cadastrado</td></tr>
+<tr style="text-align: left"><td>type</td><td>String</td><td>Tipo do usuário a ser cadastrado (buyer ou seller)</td></tr>
+</table>
+</pre>
+
+É possível consultar os usuários cadastrados com o seguinte endpoint:
+
+<p><code>Method: GET</code> <code>Sign: http://localhost:8080/users</code></p>
+<pre>
+<code><span style="font-size: medium">Response:</span></code>
+
+    [
+        {
+            "userId": 0,
+            "userName":"Vicente"
+        },
+        {  
+            "userId": 1,
+            "userName":"Brenda"
+        }
+    ]
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário cadastrado</td></tr>
+</table>
+</pre>
+
+E também consultar um usuário específico através do id com o seguinte endpoint:
+
+<p><code>Method: GET</code> <code>Sign: http://localhost:8080/users/{id}</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/1</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    
+    {  
+        "userId": 1,
+        "userName":"Brenda"
+    }
+    
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>id</td><td>int</td><td>Identificador único do usuário</td></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário cadastrado</td></tr>
+</table>
+</pre>
+
+<p><span style="font-style: italic">A partir deste ponto o sistema está pronto para seguir a documentação fornecida no enunciado do desafio.</span></p>
+
+Todavia, seguir estão os endpoints exemplificados:
+
+#### 2. Dar follow em um vendedor/seller (US 0001)
+
+<p><code>Method: POST</code> <code>Sign: http://localhost:8080/users/{userId}/follow/{userIdToFollow}</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/1/follow/0</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "message": "Seguidor vinculado"
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário que irá seguir</td></tr>
+<tr style="text-align: left"><td>userIdToFollow</td><td>int</td><td>Identificador único do usuário que será seguido</td></tr>
+<tr style="text-align: left"><td>message</td><td>String</td><td>Mensagem retornada do servidor</td></tr>
+</table>
+</pre>
+
+#### 3. Obter o resultado do número de usuários que seguem um determinado vendedor (US 0002)
+
+<p><code>Method: GET</code> <code>Sign: http://localhost:8080/users/{userId}/followers/count/</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/0/followers/count/</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "userId": 0,
+        "userName": "Vicente",
+        "followers_count": 1
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do determinado usuário/vendedor</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do determinado usuário/vendedor</td></tr>
+<tr style="text-align: left"><td>followers_count</td><td>int</td><td>Quantidade de seguidores</td></tr>
+</table>
+</pre>
+
+#### 4. Obter uma lista de todos os usuários que seguem um determinado vendedor (quem me segue?) (US 0003)
+
+<p><code>Method: GET</code> <code>Sign: http://localhost:8080/users/{userId}/followers/list</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/0/followers/list</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "userId": 0,
+        "userName": "Vicente",
+        "followers": [
+                        {
+                            "userId": 1,
+                            "userName": "brenda 1"
+                        }
+                    ]
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário</td></tr>
+<tr style="text-align: left"><td>followers</td><td>Object List</td><td>Lista de usuários que seguem o determinado usuário/vendedor</td></tr>
+</table>
+</pre>
+
+#### 5. Obter uma lista de todos os vendedores que um determinado usuário segue (quem estou seguindo?) (US 0004)
+
+<p><code>Method: GET</code> <code>Sign: http://localhost:8080/users/{userId}/followed/list</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/1/followed/list</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "userId": 1,
+        "userName": "Brenda",
+        "followed": [
+                        {
+                            "userId": 0,
+                            "userName": "Vicente"
+                        }
+                    ]
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário/comprador</td></tr>
+<tr style="text-align: left"><td>userName</td><td>String</td><td>Nome do usuário</td></tr>
+<tr style="text-align: left"><td>followed</td><td>Object List</td><td>Lista de usuários que o determinado comprador segue</td></tr>
+</table>
+</pre>
+
+#### 8. Dar unfollow em um vendedor/seller (US 0007)
+
+<p><code>Method: POST</code> <code>Sign: http://localhost:8080/users/{userId}/unfollow/{userIdToUnfollow}</code></p>
+<pre>
+<code><span style="font-size: medium">Exemplo: http://localhost:8080/users/1/unfollow/0</span></code>
+<code><span style="font-size: medium">Response:</span></code>
+
+    {
+        "message": "Seguidor desvinculado"
+    }
+
+</pre>
+
+<pre>
+<table>
+<tr><th colspan="3">Parâmetros</th></tr>
+<tr style="text-align: left"><th>Parâmetro</th><th>Tipo</th><th>Descrição/Exemplo</th></tr>
+<tr style="text-align: left"><td>userId</td><td>int</td><td>Identificador único do usuário que irá seguir</td></tr>
+<tr style="text-align: left"><td>userIdToUnfollow</td><td>int</td><td>Identificador único do usuário que será seguido</td></tr>
+<tr style="text-align: left"><td>message</td><td>String</td><td>Mensagem retornada do servidor</td></tr>
+</table>
+</pre>
