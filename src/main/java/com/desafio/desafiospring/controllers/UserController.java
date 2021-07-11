@@ -1,5 +1,6 @@
 package com.desafio.desafiospring.controllers;
 
+import com.desafio.desafiospring.dto.generics.ResponseDto;
 import com.desafio.desafiospring.dto.users.UserInputDto;
 import com.desafio.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +33,16 @@ public class UserController {
         return new ResponseEntity<>(userService.listAll(), HttpStatus.ACCEPTED);
     }
 
-    // get all users test
+    // get user by id
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByIdOutput(id), HttpStatus.ACCEPTED);
     }
 
     //US 0001
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> followUser(@PathVariable long userId,@PathVariable long userIdToFollow){
-        return new ResponseEntity<>(userService.follow(userId,userIdToFollow), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseDto(userService.follow(userId,userIdToFollow)), HttpStatus.CREATED);
     }
 
     //US 0002
@@ -65,7 +66,7 @@ public class UserController {
     //US 0007
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<?> unfollowUser(@PathVariable long userId, @PathVariable long userIdToUnfollow){
-        return new ResponseEntity<>(userService.unfollow(userId, userIdToUnfollow), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ResponseDto(userService.unfollow(userId, userIdToUnfollow)), HttpStatus.CREATED);
     }
 
 }

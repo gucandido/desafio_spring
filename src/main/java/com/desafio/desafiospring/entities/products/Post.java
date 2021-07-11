@@ -18,13 +18,27 @@ public class Post {
     private long category;
     private BigDecimal price;
 
-    public Post(User user, LocalDate date, Detail detail, long category, BigDecimal price) {
+    private boolean hasPromo;
+    private BigDecimal discount;
+
+    public Post(User user, LocalDate date, long category, BigDecimal price, boolean hasPromo, BigDecimal discount) {
         this.user = user;
         this.date = date;
-        this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
+
+    public Post(User user, LocalDate date, long category, BigDecimal price) {
+        this.user = user;
+        this.date = date;
+        this.category = category;
+        this.price = price;
+        this.hasPromo = false;
+        this.discount = BigDecimal.valueOf(0.0);
+    }
+
 
     public User getUser() {
         return user;
@@ -74,4 +88,19 @@ public class Post {
         this.price = price;
     }
 
+    public boolean isHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
 }

@@ -55,6 +55,12 @@ public class CustomExceptionHandler {
         return ResponseEntity.badRequest().body(ex);
     }
 
+    @ExceptionHandler(InvalidUserType.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(InvalidUserType e){
+        ExceptionDto ex = new ExceptionDto(e.getMessage());
+        return ResponseEntity.badRequest().body(ex);
+    }
+
     @ExceptionHandler(InvalidPrice.class)
     public ResponseEntity<ExceptionDto> defaultHandler(InvalidPrice e){
         ExceptionDto ex = new ExceptionDto(e.getMessage());

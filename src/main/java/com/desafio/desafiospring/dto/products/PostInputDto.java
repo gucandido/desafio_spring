@@ -2,30 +2,30 @@ package com.desafio.desafiospring.dto.products;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class PostInputDto {
 
     @NotNull
-    private long userId;
+    protected long userId;
 
-    private long idPost;
-
+    protected long idPost;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    protected LocalDate date;
 
     @NotNull
-    private DetailDto detail;
+    protected DetailDto detail;
 
     @NotNull
-    private long category;
+    protected long category;
 
     @NotNull
-    private BigDecimal price;
+    @Positive(message = "O preço deve ser maior que 0")
+    protected BigDecimal price;
 
     public PostInputDto() {
     }
