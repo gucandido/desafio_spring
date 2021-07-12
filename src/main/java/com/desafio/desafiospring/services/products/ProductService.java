@@ -100,7 +100,7 @@ public class ProductService {
         if(user.getType() == UserType.SELLER) {
 
             List<PromoPostOutputDto> posts = new ArrayList<>();
-            postRepository.findByUser(user.getUserId()).stream().filter(x->x.isHasPromo()).forEach(x->posts.add(PromoPostOutputDto.classToDto(x)));
+            postRepository.findByUser(user.getUserId()).stream().filter(Post::isHasPromo).forEach(x->posts.add(PromoPostOutputDto.classToDto(x)));
             orderListBy(posts, order);
 
             return new PromoPostListDto(user,posts);
@@ -121,6 +121,13 @@ public class ProductService {
                     break;
                 case "date_desc":
                     list.sort(Comparator.comparing(PostOutputDto::getDate));
+                    Collections.reverse(list);
+                    break;
+                case "name_asc":
+                    list.sort(Comparator.comparing(x -> x.getDetail().getProductName().toLowerCase()));
+                    break;
+                case "name_desc":
+                    list.sort(Comparator.comparing(x -> x.getDetail().getProductName().toLowerCase()));
                     Collections.reverse(list);
                     break;
                 default:
