@@ -321,6 +321,8 @@ Todavia, seguir estão os endpoints exemplificados:
 <tr><th>Parâmetro (order)</th><th>Descrição</th></tr>
 <tr><td>date_asc</td><td>Ordena por data dos posts de forma crescente</td></tr>
 <tr><td>date_desc</td><td>Ordena por data dos posts de forma descrescente</td></tr>
+<tr><td>name_asc</td><td>Ordena por nome do produto dos posts de forma crescente</td></tr>
+<tr><td>name_desc</td><td>Ordena por nome do produto dos posts de forma descrescente</td></tr>
 </table>
 <pre>
 <code><span style="font-size: medium">Exemplo 1: http://localhost:8080/products/followed/1/list</span></code>
@@ -508,6 +510,8 @@ Todavia, seguir estão os endpoints exemplificados:
 <tr><th>Parâmetro (order)</th><th>Descrição</th></tr>
 <tr><td>date_asc</td><td>Ordena por data dos posts de forma crescente</td></tr>
 <tr><td>date_desc</td><td>Ordena por data dos posts de forma descrescente</td></tr>
+<tr><td>name_asc</td><td>Ordena por nome do produto dos posts de forma crescente</td></tr>
+<tr><td>name_desc</td><td>Ordena por nome do produto dos posts de forma descrescente</td></tr>
 </table>
 <pre>
 <code><span style="font-size: medium">Exemplo 1: http://localhost:8080/products/0/list</span></code>
